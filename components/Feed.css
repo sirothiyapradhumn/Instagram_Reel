@@ -18,6 +18,43 @@
     align-items: center;
 }
 
+.upload-btn{
+    margin-top: 1rem;
+}
+
+.feed-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.videos-container{
+    height: 75vh;
+    /* border: 1px solid black; */
+    border-radius: 15px;
+    scrollbar-width: 0;
+    overflow-y: scroll;
+}
+
+/* .videos-container::-webkit-scrollbar{
+    display: none;
+} */
+
+.post-container{
+    height: 100%;
+    width: 20rem;
+    margin-bottom: 0.5rem;
+}
+
+.post-container>video{
+    height: 100%;
+    width: 20rem;
+    border-radius: 15px;
+    background-color: lightsalmon;
+    object-fit: contain;
+}
+
 @media screen and (max-width:500px) {
     .nav-icons{
         display: none;
