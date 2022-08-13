@@ -1,26 +1,25 @@
 import React, { useContext, useEffect } from 'react'
 import TextField from '@mui/material/TextField';
 import Image from 'next/image';
-import logo from '../../assets/Instagram.jpeg';
+import logo from '../assets/Instagram.jpeg';
 import Button from '@mui/material/Button';
 import { Carousel } from 'react-responsive-carousel';
-import bg1 from '../../assets/bg1.jpg';
-import bg2 from '../../assets/bg2.jpg';
-import bg3 from '../../assets/bg3.jpg';
-import bg4 from '../../assets/bg4.jpg';
-import bg5 from '../../assets/bg5.jpg';
-import {AuthContext} from '../../context/auth'
+import bg1 from '../assets/bg1.jpg';
+import bg2 from '../assets/bg2.jpg';
+import bg3 from '../assets/bg3.jpg';
+import bg4 from '../assets/bg4.jpg';
+import bg5 from '../assets/bg5.jpg';
+import {AuthContext} from '../context/auth'
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 
-function index() {
+function forgot() {
     const [email, setEmail] = React.useState('')
-    const [password, setPassword] = React.useState('')
     const [error, setError] = React.useState('')
     const [loading, setLoading] = React.useState(false)
     const router = useRouter();
-    const {login, user} = useContext(AuthContext);
+    const {user, forgetPassword} = useContext(AuthContext);
 
     useEffect(()=>{
         if(user) {
@@ -32,11 +31,11 @@ function index() {
     let handleClick = async() =>{
         try{
             console.log(email);
-            console.log(password);
             setLoading(true);
             setError('');
-            await login(email, password);
-            console.log("logged in");
+            await forgetPassword(email);
+            console.log("Email is sent ");
+            router.push('/login');
         }
         catch(err){
             console.log("error", err);
@@ -71,21 +70,14 @@ function index() {
                 <TextField id="outlined-basic" label="Email" size='small' margin='dense' fullWidth variant="outlined" type='email' 
                             value={email} onChange={(e)=> setEmail(e.target.value)}/>
 
-                <TextField id="outlined-basic" label="Password" size='small' margin='dense' fullWidth variant="outlined" type='password' 
-                            value={password} onChange={(e)=> setPassword(e.target.value)}/>
-                
                 {/* if error is present then show error */}
                 {
                     error!="" && 
                     <div style={{color:"red"}}>{error}</div>
                 }
                 
-                <Link href='/forgot'>
-                <div style={{color:"blueviolet"}}> Forget Password</div>
-                </Link>
-                
                 <Button style={{marginTop:"1rem"}} variant="contained" component="label" fullWidth onClick={handleClick} 
-                                disabled={loading}>Login</Button>
+                                disabled={loading}>Send Mail</Button>
             </div>
             <Link href='/signup'>
                 <div className='login-bottom-card'>Don't have an account ?<span style={{color:"blueviolet"}}> Sign up</span></div>
@@ -97,4 +89,4 @@ function index() {
   )
 }
 
-export default index
+export default forgot

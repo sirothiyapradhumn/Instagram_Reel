@@ -5,6 +5,7 @@ import logo from '../../assets/Instagram.jpeg';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import Link from 'next/link';
 
 function index() {
   return (
@@ -26,7 +27,10 @@ function index() {
               By signing up, you agree to our Terms, Condition and Cookies policy.
             </div>
         </div>
-        <div className='bottom-card'>Already have an account ? <span style={{color:"blueviolet"}}>Login</span></div>
+        <Link href='/login'>
+          <div className='bottom-card'>Already have an account ? <span style={{color:"blueviolet"}}>Login</span></div>
+        </Link>
+        
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {auth} from '../firebase'
 export const AuthContext = React.createContext();
-import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 function AuthWrapper({children}) {
     console.log("hello u are in auth wrapper");
@@ -35,10 +35,15 @@ function AuthWrapper({children}) {
       return signOut(auth);
     }
 
+    function forgetPassword(email){
+      return sendPasswordResetEmail(auth, email);
+    }
+
     const store = {
         login,
         user,
-        logout
+        logout,
+        forgetPassword
     }
 
   return (
