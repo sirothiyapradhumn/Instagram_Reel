@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import TextField from '@mui/material/TextField';
 import Image from 'next/image';
 import logo from '../../assets/Instagram.jpeg';
@@ -10,21 +10,29 @@ import bg3 from '../../assets/bg3.jpg';
 import bg4 from '../../assets/bg4.jpg';
 import bg5 from '../../assets/bg5.jpg';
 import {AuthContext} from '../../context/auth'
+import { useRouter } from 'next/router';
 
 
 function index() {
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
     const [error, setError] = React.useState('')
-    const [loader, setLoader] = React.useState(false)
+    const [loading, setLoading] = React.useState(false)
+    const router = useRouter();
+    const {login, user} = useContext(AuthContext);
 
-    const {login} = useContext(AuthContext);
+    useEffect(()=>{
+        if(user) {
+            //route to feed page
+            router.push('/');
+        }
+    }, [user]);
 
     let handleClick = async() =>{
         try{
             console.log(email);
             console.log(password);
-            setLoader(true);
+            setLoading(true);
             setError('');
             await login(email, password);
             console.log("logged in");
@@ -37,7 +45,7 @@ function index() {
                 setError('');
             }, 2000);
         }
-        setLoader(false);
+        setLoading(false);
 
         
     }
@@ -72,7 +80,8 @@ function index() {
                 }
 
                 <div style={{color:"blueviolet"}}> Forget Password</div>
-                <Button style={{marginTop:"1rem"}} variant="contained" component="label" fullWidth onClick={handleClick}>Login</Button>
+                <Button style={{marginTop:"1rem"}} variant="contained" component="label" fullWidth onClick={handleClick} 
+                                disabled={loading}>Login</Button>
             </div>
             <div className='login-bottom-card'>Don't have an account ?<span style={{color:"blueviolet"}}> Sign up</span></div>
         </div>
