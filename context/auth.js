@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {auth} from '../firebase'
 export const AuthContext = React.createContext();
-import { onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword } from "firebase/auth";
 
 function AuthWrapper({children}) {
     console.log("hello u are in auth wrapper");
@@ -20,10 +20,8 @@ function AuthWrapper({children}) {
 
     // feature created
     function login(email,password){
+    //goes to firebase check if function called legit // email pass check with users table in authentication service // if present success, else fail
       return signInWithEmailAndPassword(auth, email, password);
-      //goes to firebase check if function called legit
-      // email pass check with users table in authentication service
-      // if present success, else fail
     }
 
     function logout(){
@@ -34,11 +32,16 @@ function AuthWrapper({children}) {
       return sendPasswordResetEmail(auth, email);
     }
 
+    function signup(email, password){
+      return createUserWithEmailAndPassword(auth, email, password)
+    }
+
     const store = {
         login,
         user,
         logout,
-        forgetPassword
+        forgetPassword,
+        signup
     }
 
   return (
