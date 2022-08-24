@@ -28,7 +28,7 @@ function index() {
             </div>
         </div>
         <Link href='/login'>
-          <div className='bottom-card'>Already have an account ? <span style={{color:"blueviolet"}}>Login</span></div>
+          <div className='bottom-card'>Already have an account ? <span style={{color:"blueviolet", cursor: 'pointer'}}>Login</span></div>
         </Link>
         
     </div>

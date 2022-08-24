@@ -80,7 +80,7 @@ function forgot() {
                                 disabled={loading}>Send Mail</Button>
             </div>
             <Link href='/signup'>
-                <div className='login-bottom-card'>Don't have an account ?<span style={{color:"blueviolet"}}> Sign up</span></div>
+                <div className='login-bottom-card'>Don't have an account ?<span style={{color:"blueviolet" ,cursor: 'pointer'}}> Sign up</span></div>
             </Link>
             
         </div>

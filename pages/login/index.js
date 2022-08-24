@@ -20,6 +20,7 @@ function index() {
     const [error, setError] = React.useState('')
     const [loading, setLoading] = React.useState(false)
     const router = useRouter();
+
     const {login, user} = useContext(AuthContext);
 
     useEffect(()=>{
@@ -29,7 +30,7 @@ function index() {
         }
     }, [user]);
 
-    let handleClick = async() =>{
+    let handleClick = async() =>{0
         try{
             console.log(email);
             console.log(password);
@@ -81,14 +82,14 @@ function index() {
                 }
                 
                 <Link href='/forgot'>
-                <div style={{color:"blueviolet"}}> Forget Password</div>
+                <div style={{color:"blueviolet" ,cursor: 'pointer'}}> Forget Password</div>
                 </Link>
                 
                 <Button style={{marginTop:"1rem"}} variant="contained" component="label" fullWidth onClick={handleClick} 
                                 disabled={loading}>Login</Button>
             </div>
-            <Link href='/signup'>
-                <div className='login-bottom-card'>Don't have an account ?<span style={{color:"blueviolet"}}> Sign up</span></div>
+            <Link href='/signup' >
+                <div className='login-bottom-card'>Don't have an account ?<span style={{color:"blueviolet" ,cursor: 'pointer'}}> Sign up</span></div>
             </Link>
             
         </div>
