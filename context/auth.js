@@ -12,7 +12,12 @@ function AuthWrapper({children}) {
     useEffect(() =>{
       onAuthStateChanged(auth, (user)=>{
         console.log("onAuthStatechanged called");
-        setUser(user);
+        if(user){
+          setUser(user);
+        }
+        else{
+          setUser('');
+        }
       })
       setLoading(false);
     }, [])
