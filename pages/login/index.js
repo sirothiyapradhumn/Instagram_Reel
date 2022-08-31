@@ -30,7 +30,7 @@ function index() {
         }
     }, [user]);
 
-    let handleClick = async() =>{0
+    let handleClick = async() =>{
         try{
             console.log(email);
             console.log(password);
