@@ -13,7 +13,7 @@ function Feed() {
   const [userData, setUserData] = useState({});
 
   useEffect(()=>{
-    console.log(user.uid)
+    console.log(user)
     //read the user info from db
     const unsub = onSnapshot(doc(db, "users", user.uid), (doc) => {
         console.log("Current data: ", doc.data());
@@ -25,7 +25,7 @@ function Feed() {
   return (
     <div className='feed-container'>
         <Navbar userData={userData}/>
-        <Upload/>
+        <Upload userData={userData}/>
         <div className='videos-container'>
             <div className='post-container'>
                 <video />
