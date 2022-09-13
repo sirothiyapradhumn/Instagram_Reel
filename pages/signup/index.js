@@ -67,7 +67,9 @@ function index() {
                 email,
                 password, 
                 downloadURL,
-                uid: userInfo.user.uid
+                uid: userInfo.user.uid,
+                posts:[],
+
               }
               await setDoc(doc(db, "users", userInfo.user.uid), userData);
               console.log("doc added to dB");

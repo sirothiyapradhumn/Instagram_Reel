@@ -5,7 +5,7 @@ import { LinearProgress } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { arrayUnion, doc, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { storage, db } from '../firebase';
 
@@ -71,6 +71,12 @@ function Upload({userData}) {
               console.log(postObj);
               await setDoc(doc(db, "posts", uid), postObj);
               console.log("Posts added to post collection");
+
+              // updatein users, post ka array
+              await updateDoc(doc(db, "users", userData.uid), {
+                posts: arrayUnion(uid),
+              })
+              console.log("Posts array added to user doc");
             });
           }
         );
