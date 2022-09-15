@@ -82,6 +82,21 @@
     height: 3rem;
 }
 
+.modal-container{
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.video-modal{
+    height: 100%;
+    width: 50%;
+}
+
+.comment-modal{
+    height: 100%;
+    width: 50%;
+}
 @media screen and (max-width:500px) {
     .nav-icons{
         display: none;
