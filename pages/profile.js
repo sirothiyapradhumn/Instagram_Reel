@@ -5,21 +5,22 @@ import { useContext } from "react";
 import { AuthContext } from "../context/auth";
 
 function profile() {
-  // const { user } = useContext(AuthContext);
-  // console.log(user.uid);  
+  const { user } = useContext(AuthContext);
+  console.log(user.uid);  
 
-  // const Redirect = () => {
-  //   const router = useRouter();
-  //   router.push("/profile");
-  // };
+  const Redirect = () => {
+    const router = useRouter();
+    router.push("/login");
+    return null;
+  };
 
     return (
       //this component will only be visible when we are logged in , so a protect route will be wrapped
       <>
-        {/* {
+        {
           user?.uid? <Profile/> :<Redirect/>
-        } */}
-        <Profile/>
+        }
+        {/* <Profile/> */}
       </>
    
   )
