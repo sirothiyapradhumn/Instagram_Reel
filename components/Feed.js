@@ -42,7 +42,7 @@ function Feed() {
       <Upload userData={userData} />
       <div className="videos-container">
         {
-          posts.map((post) => <Post postData={post} />)
+          posts.map((post) => <Post postData={post} userData = { user } />)
         }
       </div>
     </div>
