@@ -92,7 +92,7 @@ function Post({ postData, userData }) {
               </div>
               <div className="comments-modal">
                 <Card className="card1"></Card>
-                
+
                 <Card className="card2">
                   <Typography
                     sx={{
@@ -111,7 +111,7 @@ function Post({ postData, userData }) {
                       style={like ? { color: "red" } : { color: "black" }}
                       onClick={handleLike}
                     />
-                    <Comment />
+                    <Comment userData={userData} postData={postData}/>
                   </div>
                 </Card>
               </div>

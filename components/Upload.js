@@ -60,6 +60,7 @@ function Upload({userData}) {
 
               let postObj = {
                 likes: [],
+                comments: [],
                 postId: uid,
                 postURL: downloadURL,
                 profileName: userData.fullname,
