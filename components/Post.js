@@ -17,10 +17,12 @@ import Typography from "@mui/material/Typography";
 import { CardActionArea, CardActions } from "@mui/material";
 import Comment from './Comment';
 import DisplayComment from "./DisplayComment";
+import * as ReactDOM from 'react-dom';
 
 function Post({ postData, userData }) {
   // console.log("123456",postData);
   const [like, setLike] = useState(false);
+  const [isMute, setIsMute] = useState(true);
   // heart red -> jab logged in user ne like kia hta h
   const [open, setOpen] = React.useState(false);
 
@@ -56,9 +58,27 @@ function Post({ postData, userData }) {
     }
   };
 
+  const handleMute = ()=>{
+    if(isMute){
+      setIsMute(false);
+    }
+    else{
+      setIsMute(true);
+    }
+  };
+
+  const handleNextVideo = (e) => {
+    //get the next video 
+    let nextVideo = ReactDOM.findDOMNode(e.target).parentNode.nextSibling;
+    if (nextVideo) {
+
+      nextVideo.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
-    <div className="post-container">
-      <video src={postData.postURL} />
+    <div className="post-container"> 
+      <video src={postData.postURL} muted={isMute} onClick={handleMute} onEnded={handleNextVideo} />
       <div className="videos-info">
         <div className="avatar-container">
           <Avatar
