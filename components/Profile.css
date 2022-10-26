@@ -5,7 +5,7 @@
     align-items: center;
 }
 
-.profile-post{
+.profile-posts{
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -15,7 +15,7 @@
     margin-right: 20%;
 }
 
-.profile-post>video{
+.profile-posts>video{
     border: 2px solid black;
     width: 20rem;
     height: 30rem;

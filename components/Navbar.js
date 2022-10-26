@@ -48,7 +48,7 @@ const ResponsiveAppBar = ({userData}) => {
   }
 
   return (
-    <AppBar position="static" className='navBar'>
+    <AppBar position="static" className='navBar' color="transparent">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
