@@ -102,7 +102,7 @@ const ResponsiveAppBar = ({userData}) => {
 
           <Box sx={{ flexGrow: 0 }} className='nav-icons-container'>
             <HomeIcon fontSize='large'className='nav-icons'/>
-            <ExploreIcon fontSize='large' className='nav-icons'/>
+            {/* <ExploreIcon fontSize='large' className='nav-icons'/> */}
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src={userData?.downloadURL} sx={{margin:'0.5rem'}}/>
