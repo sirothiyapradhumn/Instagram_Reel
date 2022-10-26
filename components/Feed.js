@@ -12,9 +12,9 @@ function Feed() {
   const [posts, setPosts] = useState([]);
   
   useEffect(() => {
-    console.log(user.uid);
+    //console.log("userId",user.uid);
     const unsub = onSnapshot(doc(db, "users", user.uid), (doc) => {
-      console.log("hello", doc.data());
+      //console.log("hello", doc.data());
       setUserData(doc.data());
     });
     return () => {
@@ -24,7 +24,7 @@ function Feed() {
 
   //get posts from db 
   useEffect(() => {
-    console.log(user.uid);
+    //console.log(user.uid);
     const unsub = onSnapshot(query(collection(db, "posts"), orderBy("timestamp", "desc")), (snapshot) => {
       let tempArray = [];
       snapshot.docs.map(doc=>tempArray.push(doc.data()))
@@ -40,10 +40,10 @@ function Feed() {
     entries.forEach((entry) => {
       let ele = entry.target.childNodes[0];
 
-      console.log(ele);
+      //console.log(ele);
       ele.play().then(() => {
         if (!ele.paused && !entry.isIntersecting) {
-          console.log("123", entry.isIntersecting);
+          //console.log("123", entry.isIntersecting);
           ele.pause();
         }
       });
@@ -59,11 +59,11 @@ function Feed() {
   let observer = new IntersectionObserver(callback, options);
   useEffect(() => {
     const elements = document.querySelectorAll(".videos-container");
-    console.log("wow", elements);
+    //console.log("wow", elements);
     let postContainer = elements[0].childNodes;
-    console.log("timon",postContainer);
+    //console.log("timon",postContainer);
     postContainer.forEach((video) => {
-      console.log("bye", video.childNodes[0]);
+      //console.log("bye", video.childNodes[0]);
        observer.observe(video);
     });
 

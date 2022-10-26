@@ -32,15 +32,15 @@ function index() {
 
     let handleClick = async() =>{
         try{
-            console.log(email);
-            console.log(password);
+            //console.log(email);
+            //console.log(password);
             setLoading(true);
             setError('');
             await login(email, password);
-            console.log("logged in");
+            //console.log("logged in");
         }
         catch(err){
-            console.log("error", err);
+            //console.log("error", err);
             setError(err.code);
             // use settimeout to remove error after 2 sec
             setTimeout(() => {

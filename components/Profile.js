@@ -13,7 +13,7 @@ function Profile() {
   const [userPosts, setUserPosts] = useState([]);
   
   useEffect(() => {
-    console.log(user.uid);
+    //console.log(user.uid);
     const unsub = onSnapshot(doc(db, "users", user.uid), (doc) => {
       setUserData(doc.data());
       setPostIds(doc.data().posts);
@@ -29,7 +29,7 @@ function Profile() {
       const unsub = onSnapshot(doc(db, "posts", pid), (doc) => {
         tempArr.push(doc.data());
         setUserPosts([...tempArr]);
-        console.log("hello",tempArr);
+        //console.log("hello",tempArr);
       });
     })
   }, [postIds]);

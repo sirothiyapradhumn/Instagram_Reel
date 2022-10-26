@@ -4,14 +4,14 @@ export const AuthContext = React.createContext();
 import { onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword } from "firebase/auth";
 
 function AuthWrapper({children}) {
-    console.log("hello u are in auth wrapper");
+    //console.log("hello u are in auth wrapper");
 
     const [user, setUser] = useState('');
     const [loading, setLoading] = useState(true);
 
     useEffect(() =>{
       onAuthStateChanged(auth, (user)=>{
-        console.log("onAuthStatechanged called");
+        //console.log("onAuthStatechanged called");
         if(user){
           setUser(user);
         }

@@ -6,7 +6,7 @@ import { AuthContext } from "../context/auth";
 
 function profile() {
   const { user } = useContext(AuthContext);
-  console.log(user.uid);  
+  //console.log(user.uid);  
 
   const Redirect = () => {
     const router = useRouter();
