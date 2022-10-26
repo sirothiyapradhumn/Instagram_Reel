@@ -18,7 +18,7 @@ function Upload({userData}) {
 
   const handleChange = (e) => {
     const file = e.target.files[0];
-    console.log(file);
+    //console.log(file);
     if(file == null){
       setError('file not selected');
       setTimeout(() => {setError('')}, 2000);
@@ -43,12 +43,12 @@ function Upload({userData}) {
             // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
             const prog = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             setProgress(prog)
-            console.log('Upload is ' + prog + '% done');
+            //console.log('Upload is ' + prog + '% done');
           }, 
           (error) => {
             // A full list of error codes is available at
             // https://firebase.google.com/docs/storage/web/handle-errors
-            console.log(error);
+            //console.log(error);
             setError(error);
             setTimeout(()=> {setError('')}, 2000);
             return;
@@ -56,7 +56,7 @@ function Upload({userData}) {
           () => {
             // Upload completed successfully, now we can get the download URL
             getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-              console.log('File available at', downloadURL);
+              //console.log('File available at', downloadURL);
 
               let postObj = {
                 likes: [],
@@ -69,19 +69,19 @@ function Upload({userData}) {
                 timestamp: serverTimestamp(),
               }
 
-              console.log(postObj);
+              //console.log(postObj);
               await setDoc(doc(db, "posts", uid), postObj);
-              console.log("Posts added to post collection");
+              //console.log("Posts added to post collection");
 
               // updatein users, post ka array
               await updateDoc(doc(db, "users", userData.uid), {
                 posts: arrayUnion(uid),
               })
-              console.log("Posts array added to user doc");
+              //console.log("Posts array added to user doc");
             });
           }
         );
-        console.log("user signed up");
+        //console.log("user signed up");
   }
 
   return (

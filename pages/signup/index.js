@@ -32,15 +32,15 @@ function index() {
   }, [user]);
 
   let handleClick = async() =>{
-    console.log(email);
-    console.log(password);
-    console.log(fullname);
-    console.log(file);
+    //console.log(email);
+    //console.log(password);
+    //console.log(fullname);
+    //console.log(file);
     try{
         setLoading(true);
         setError("");
         const userInfo = await signup(email, password);
-        console.log(userInfo.user.uid);
+        //console.log(userInfo.user.uid);
         
         // Upload file and metadata to the object 'images/mountains.jpg'
         const storageRef = ref(storage, `${userInfo.user.uid}/Profile`);
@@ -51,17 +51,17 @@ function index() {
           (snapshot) => {
             // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log('Upload is ' + progress + '% done');
+            //console.log('Upload is ' + progress + '% done');
           }, 
           (error) => {
             // A full list of error codes is available at
             // https://firebase.google.com/docs/storage/web/handle-errors
-            console.log(error);
+            //console.log(error);
           }, 
           () => {
             // Upload completed successfully, now we can get the download URL
             getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-              console.log('File available at', downloadURL);
+              //console.log('File available at', downloadURL);
               let userData = {
                 fullname,
                 email,
@@ -72,14 +72,14 @@ function index() {
 
               }
               await setDoc(doc(db, "users", userInfo.user.uid), userData);
-              console.log("doc added to dB");
+              //console.log("doc added to dB");
             });
           }
         );
-        console.log("user signed up");
+        //console.log("user signed up");
       }
       catch(err){
-        console.log("error", err);
+        //console.log("error", err);
         setError(err.code);
         // use settimeout to remove error after 2 sec
         setTimeout(() => {

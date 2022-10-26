@@ -27,12 +27,12 @@ function Post({ postData, userData }) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
-    console.log("dialog opened");
+    //console.log("dialog opened");
     setOpen(true);
   };
 
   const handleClose = () => {
-    console.log("dialog closed");
+    //console.log("dialog closed");
     setOpen(false);
   };
   useEffect(() => {

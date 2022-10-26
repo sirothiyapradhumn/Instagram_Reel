@@ -5,10 +5,10 @@ function InterOb() {
       entries.forEach((entry) => {
         let ele = entry.target.childNodes[0];
 
-        console.log(ele);
+        //console.log(ele);
         ele.play().then(() => {
           if (!ele.paused && !entry.isIntersecting) {
-            console.log("123", entry.isIntersecting);
+            //console.log("123", entry.isIntersecting);
             ele.pause();
           }
         });

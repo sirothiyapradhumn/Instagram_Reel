@@ -30,15 +30,15 @@ function forgot() {
 
     let handleClick = async() =>{
         try{
-            console.log(email);
+            //console.log(email);
             setLoading(true);
             setError('');
             await forgetPassword(email);
-            console.log("Email is sent ");
+            //console.log("Email is sent ");
             router.push('/login');
         }
         catch(err){
-            console.log("error", err);
+            //console.log("error", err);
             setError(err.code);
             // use settimeout to remove error after 2 sec
             setTimeout(() => {
