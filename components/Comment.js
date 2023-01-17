@@ -1,39 +1,41 @@
-import React, { useState } from 'react'
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import { arrayUnion, doc, setDoc, updateDoc } from 'firebase/firestore';
-import { db } from '../firebase';
-import { v4 as uuidv4 } from 'uuid';
+import { uuidv4 } from "@firebase/util";
 
-function Comment({userData, postData}) {
-    const [comment, setComment] = useState('');
+import { Button, Input } from "@mui/material";
+import { arrayUnion, doc, setDoc, updateDoc } from "firebase/firestore";
+import React, { useState } from "react";
+import { db } from "../firebase";
 
-    const handleComment = async ()=>{   
-        let uid  = uuidv4();
-        const obj ={
-            commentId: uid,
-            text: comment,
-            userDP : userData.downloadURL,
-            userName: userData.fullname,
-            postId: postData.postId,
-        }
-        await setDoc(doc(db,"comments", uid), obj);
-
-        await updateDoc(doc(db, "posts", postData.postId),{
-            comments: arrayUnion(uid),
-        });
-
-        setComment('');
-    }
-
+function Comment({ userData, postData }) {
+  const [comment, setComment] = useState("");
+  const handleComment = async () => {
+    let uid = uuidv4();
+    const commentObj = {
+      text: comment,
+      userDP: userData.downloadURL,
+      userName: userData.fullName,
+      commentUid: uid,
+      postId: postData.postId,
+    };
+    await setDoc(doc(db, "comments", uid), commentObj); //making a collection called commentObj
+    //now we have to update the posts collection by pushing the commentid in its comment array
+    await updateDoc(doc(db, "posts", postData.postId), {
+      comments: arrayUnion(uid),
+    });
+    setComment("");
+  };
   return (
-    <div style={{width:'100%'}}>
-      {/* comment */}
-      <TextField id="outlined-basic" label="Add Comment" variant="outlined" size="small" sx={{width:'70%'}} value={comment} onChange={(e)=>setComment(e.target.value)}/>
-      {/* button */}
-      <Button variant="contained" onClick={handleComment}>Post</Button>
+    <div className="comment-post-btn" style={{ width: "100%" }}>
+      <Input
+        type="text"
+        value={comment}
+        placeholder="Add a comment..."
+        onChange={(e) => setComment(e.target.value)}
+      >
+        Add a comment...
+      </Input>
+      <Button onClick={handleComment}>Post</Button>
     </div>
   );
 }
 
-export default Comment
+export default Comment;

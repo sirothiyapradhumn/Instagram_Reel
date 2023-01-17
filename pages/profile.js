@@ -1,29 +1,15 @@
-import React from 'react'
-import Profile from '../components/Profile';
 import { useRouter } from "next/router";
-import { useContext } from "react";
+import React, { useContext } from "react";
+import Profile from "../components/Profile";
 import { AuthContext } from "../context/auth";
-
-function profile() {
+function Profile1() {
   const { user } = useContext(AuthContext);
-  //console.log(user.uid);  
-
+  console.log("To see the profile");
   const Redirect = () => {
-    const router = useRouter();
-    router.push("/login");
-    return null;
+    const route = useRouter();
+    route.push("/login");
   };
-
-    return (
-      //this component will only be visible when we are logged in , so a protect route will be wrapped
-      <>
-        {
-          user?.uid? <Profile/> :<Redirect/>
-        }
-        {/* <Profile/> */}
-      </>
-   
-  )
+  return <>{user?.uid ? <Profile /> : <Redirect />}</>;
 }
 
-export default profile
+export default Profile1;

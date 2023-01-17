@@ -1,42 +1,25 @@
 import React, { useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
-import AddCommentIcon from "@mui/icons-material/AddComment";
-import Button from "@mui/material/Button";
+import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
+import { border } from "@mui/system";
+import { Button, Divider } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { CardActionArea, CardActions } from "@mui/material";
-import Comment from './Comment';
-import DisplayComment from "./DisplayComment";
-import * as ReactDOM from 'react-dom';
+import Comment from "./Comment";
+import DisplayCommentCard from "./DisplayCommentCard";
 
 function Post({ postData, userData }) {
-  // console.log("123456",postData);
   const [like, setLike] = useState(false);
-  const [isMute, setIsMute] = useState(true);
-  // heart red -> jab logged in user ne like kia hta h
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [follow, setFollow] = useState(false);
+  // const [followers,setFollowers]=useState(false);
 
-  const handleClickOpen = () => {
-    //console.log("dialog opened");
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    //console.log("dialog closed");
-    setOpen(false);
-  };
   useEffect(() => {
-    if (postData.likes.includes(userData.uid)) {
+    if (postData.likes.includes(userData?.uid)) {
       setLike(true);
     } else {
       setLike(false);
@@ -45,59 +28,93 @@ function Post({ postData, userData }) {
 
   const handleLike = async () => {
     if (like) {
-      //unlike
+      //to unlike a post
       await updateDoc(doc(db, "posts", postData.postId), {
         likes: arrayRemove(userData.uid),
       });
     } else {
-      //like
-      // likes["12345677iuyhtgfrd"]
+      //to like a post
       await updateDoc(doc(db, "posts", postData.postId), {
         likes: arrayUnion(userData.uid),
       });
     }
   };
+  console.log("PostData is ", postData);
 
-  const handleMute = ()=>{
-    if(isMute){
-      setIsMute(false);
+  useEffect(() => {
+    if (userData?.following?.includes(postData.uid)) {
+      setFollow(true);
+    } else {
+      setFollow(false);
     }
-    else{
-      setIsMute(true);
-    }
+  }, [userData]);
+
+  const handleFollow = async () => {
+    console.log("in follow");
+
+    await updateDoc(doc(db, "users", postData.uid), {
+      followers: arrayUnion(userData.uid),
+    });
+    await updateDoc(doc(db, "users", userData.uid), {
+      following: arrayUnion(postData.uid),
+    });
+  };
+  const handleUnFollow = async () => {
+    console.log("handling unfollow");
+
+    // setFollow(false);
+    await updateDoc(doc(db, "users", postData.uid), {
+      followers: arrayRemove(userData.uid),
+    });
+    await updateDoc(doc(db, "users", userData.uid), {
+      following: arrayRemove(postData.uid),
+    });
   };
 
-  const handleNextVideo = (e) => {
-    //get the next video 
-    let nextVideo = ReactDOM.findDOMNode(e.target).parentNode.nextSibling;
-    if (nextVideo) {
-
-      nextVideo.scrollIntoView({ behavior: "smooth" });
-    }
+  const handleClickOpen = () => {
+    console.log("dialog opened");
+    setOpen(true);
   };
 
+  const handleClose = () => {
+    console.log("dialog closed");
+    setOpen(false);
+  };
   return (
-    <div className="post-container"> 
-      <video src={postData.postURL} muted={isMute} onClick={handleMute} onEnded={handleNextVideo} />
-      <div className="videos-info">
-        <div className="avatar-container">
-          <Avatar
-            alt="Remy Sharp"
-            src={postData.profilePhotoURL}
-            sx={{ margin: "0.5rem" }}
-          />
-          <p style={{ color: "white" }}>{postData.profileName}</p>
-        </div>
-        <div className="post-like">
-          <FavoriteIcon
-            style={like ? { color: "red" } : { color: "white" }}
-            onClick={handleLike}
-          />
-          <p style={{ color: "white" }}>{postData.likes.length}</p>
-          <AddCommentIcon
-            onClick={handleClickOpen}
-            style={{ color: "white" }}
-          />
+    <div className="post-container">
+      <div className="top">
+        <Avatar
+          alt="Remy Sharp"
+          src={postData.profilePhotoURL}
+          sx={{ margin: "1.5rem" }}
+        />
+        <p>{postData.profileName}</p>
+      </div>
+
+      <video autoPlay controls muted src={postData.postURL} />
+
+      <div className="like-comment">
+        <span className="icons">
+          {like ? (
+            <FavoriteIcon
+              onClick={handleLike}
+              style={{ color: "red", marginRight: "1rem" }}
+            />
+          ) : (
+            <FavoriteBorderIcon
+              onClick={handleLike}
+              style={{ marginRight: "1rem" }}
+            />
+          )}
+
+          <ChatBubbleOutlineOutlinedIcon onClick={handleClickOpen} />
+        </span>
+        <div className="like-name">
+          {postData.likes.length > 1 ? (
+            <p>{postData.likes.length} likes</p>
+          ) : (
+            <p> {postData.likes.length} like</p>
+          )}
           <Dialog
             open={open}
             onClose={handleClose}
@@ -108,37 +125,69 @@ function Post({ postData, userData }) {
           >
             <div className="modal-container">
               <div className="video-modal">
-                <video autoPlay controls muted src={postData.postURL} />
+                <video autoPlay={true} controls muted src={postData.postURL} />
               </div>
               <div className="comments-modal">
-                <Card className="card1">
-                  <DisplayComment postData={postData}/>
-                </Card>
-
-                <Card className="card2">
-                  <Typography
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
+                <div className="upper">
+                  <span className="postCreator">
+                    <Avatar
+                      alt="Remy Sharp"
+                      src={postData.profilePhotoURL}
+                      sx={{ marginLeft: "0.20rem", marginRight: "0.20rem" }}
+                    />
+                    <p>{postData.profileName}</p>
+                    {follow ? (
+                      <Button
+                        size="small"
+                        onClick={handleUnFollow}
+                        sx={{ marginLeft: "9rem", marginInlineEnd: "2rem" }}
+                      >
+                        Unfollow
+                      </Button>
+                    ) : (
+                      <Button
+                        size="small"
+                        onClick={handleFollow}
+                        sx={{ marginLeft: "9rem", marginInlineEnd: "2rem" }}
+                      >
+                        Follow
+                      </Button>
+                    )}
+                  </span>
+                  <Divider />
+                  <DisplayCommentCard postData={postData} userData={userData} />
+                </div>
+                <div className="lower">
+                  <Typography>
                     {postData.likes.length == 0
                       ? "Be the first one to like this post"
-                      : `Liked by ${postData.likes.length} users`}
+                      : `Liked by ${postData.likes.length} people`}
                   </Typography>
-                  {/* heart */}
-                  <div className="post-like2">
-                    <FavoriteIcon
-                      style={like ? { color: "red" } : { color: "black" }}
-                      onClick={handleLike}
-                    />
-                    <Comment userData={userData} postData={postData}/>
-                  </div>
-                </Card>
+
+                  <span>
+                    {like ? (
+                      <FavoriteIcon
+                        onClick={handleLike}
+                        style={{ color: "red", marginRight: "1rem" }}
+                      />
+                    ) : (
+                      <FavoriteBorderIcon
+                        onClick={handleLike}
+                        style={{ marginRight: "1rem" }}
+                      />
+                    )}{" "}
+                    <Comment userData={userData} postData={postData} />
+                  </span>
+                </div>
               </div>
             </div>
           </Dialog>
+
+          <p style={{ marginTop: "1rem" }}>{postData.profileName}</p>
+          <Divider sx={{ marginTop: "1rem" }} />
+          <div className="last-sec">
+            <Comment userData={userData} postData={postData} />
+          </div>
         </div>
       </div>
     </div>
