@@ -38,3 +38,15 @@
 .emailBox{
   padding-bottom: 3px !important;
 }
+.forget-card {
+  width: 23rem;
+  height: 13rem;
+  border: 1px solid #ccc;
+  padding: 1rem;
+}
+.bottomForget-card{
+  width: 23rem;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin-top: 1rem;
+}

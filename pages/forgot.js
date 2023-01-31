@@ -45,28 +45,27 @@ function forgot() {
   };
   return (
     <div className="login-container">
-      <div className="insta-mob-bg">
-        <div className="carousel">
-          <Carousel
-            autoPlay
-            interval={2000}
-            infiniteLoop
-            showArrows={false}
-            showThumbs={false}
-            showIndicators={false}
-            stopOnHover
-            showStatus={false}
-          >
-            <Image src={bg1} />
-            <Image src={bg2} />
-            <Image src={bg3} />
-            <Image src={bg4} />
-            <Image src={bg5} />
-          </Carousel>
-        </div>
+      <div className="bckgrd">
+        <Carousel
+          className="carousel"
+          autoPlay
+          interval={2000}
+          infiniteLoop
+          showArrows={false}
+          showThumbs={false}
+          showIndicators={false}
+          stopOnHover
+          showStatus={false}
+        >
+          <Image src={bg1} width={246} height={440} />
+          <Image src={bg2} width={246} height={440} />
+          <Image src={bg3} width={246} height={440} />
+          <Image src={bg4} width={246} height={440} />
+          <Image src={bg5} width={246} height={440} />
+        </Carousel>
       </div>
       <div>
-        <div className="login-card">
+        <div className="forget-card">
           <Image src={logo} />
           <TextField
             id="outlined-basic"
@@ -92,10 +91,10 @@ function forgot() {
             Send Mail
           </Button>
         </div>
-        <div className="bottom-card">
+        <div className="bottomForget-card">
           Don't Have an account ?{" "}
           <Link href="/signup">
-            <span style={{ color: "blueviolet" }}>Signup</span>
+            <span style={{ color: "blueviolet", cursor: 'pointer' }}>Signup</span>
           </Link>
         </div>
       </div>
