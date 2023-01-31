@@ -75,6 +75,7 @@ function Index() {
             margin="dense"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            className="emailBox"
           />
           <TextField
             id="outlined-basic"
@@ -104,7 +105,7 @@ function Index() {
         <div className="bottomcardlogin">
           Do not have an account?
           <Link href="/signup">
-            <span style={{ color: "blueviolet", marginLeft: "0.2rem" }}>
+            <span style={{ color: "blueviolet", marginLeft: "0.2rem", cursor: 'pointer' }}>
               Sign up
             </span>
           </Link>

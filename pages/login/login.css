@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 8rem;
+  margin-top: 5rem;
   text-align: center;
   flex-direction: row;
 }
@@ -10,6 +10,7 @@
   color: rgb(58, 94, 159);
   margin-top: 1rem;
   margin-bottom: 1rem;
+  cursor: pointer;
 }
 .login-card {
   width: 23rem;
@@ -25,10 +26,15 @@
 }
 .bckgrd {
   background-image: url("../../assets/background.png");
-  width: 440px;
+  width: 490px;
   height: 600px;
 }
 .carousel {
-  margin-top: 13.5vh;
-  margin-left: 3.3vw;
+  /* margin-top: 13.5vh;
+  margin-left: 3.3vw; */
+  top: 45px;
+  left: 13px;
+}
+.emailBox{
+  padding-bottom: 3px !important;
 }
