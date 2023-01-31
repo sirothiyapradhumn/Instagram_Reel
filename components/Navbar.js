@@ -50,7 +50,7 @@ const ResponsiveAppBar = ({ userData }) => {
     <AppBar
       position="static"
       className="navbar"
-      sx={{ background: "white", overflowX: "hidden", width: "100vw" }}
+      sx={{ background: "white", overflowX: "hidden", width: "98.9vw" }}
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>

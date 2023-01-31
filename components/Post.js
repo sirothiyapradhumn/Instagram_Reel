@@ -183,7 +183,7 @@ function Post({ postData, userData }) {
             </div>
           </Dialog>
 
-          <p style={{ marginTop: "1rem" }}>{postData.profileName}</p>
+          <p style={{ marginTop: "1rem", fontSize: '13px'}}>{postData.profileName}</p>
           <Divider sx={{ marginTop: "1rem" }} />
           <div className="last-sec">
             <Comment userData={userData} postData={postData} />
