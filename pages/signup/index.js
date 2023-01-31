@@ -166,7 +166,7 @@ useEffect(() => {
       <div className="bottom-card">
         Already Have an account ?{" "}
         <Link href="/login">
-          <span style={{ color: "blueviolet" }}>Login</span>
+          <span style={{ color: "blueviolet", cursor: 'pointer' }}>Login</span>
         </Link>
       </div>
     </div>
