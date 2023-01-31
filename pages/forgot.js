@@ -13,7 +13,7 @@ import { AuthContext } from "../context/auth";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
-function forgot() {
+function Forgot() {
   const [email, setEmail] = React.useState("");
   const [error, setError] = React.useState("");
   const [loading, setLoading] = React.useState(false);
@@ -92,7 +92,7 @@ function forgot() {
           </Button>
         </div>
         <div className="bottomForget-card">
-          Don't Have an account ?{" "}
+          Don&apos;t Have an account ?
           <Link href="/signup">
             <span style={{ color: "blueviolet", cursor: 'pointer' }}>Signup</span>
           </Link>
@@ -102,4 +102,4 @@ function forgot() {
   );
 }
 
-export default forgot;
+export default Forgot;
