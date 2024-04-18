@@ -27,11 +27,15 @@ function Index() {
       route.push("/");
     }
   }, [user]);
-  let handleClick = async () => {
+  let handleClick = async (testUser = false) => {
     try {
       setLoading(true);
       setError("");
-      await login(email, password);
+      if(testUser) {
+        await login('abc123@gmail.com', 'abc@123');
+      }else {
+        await login(email, password);
+      }
       console.log("Successfully logged in");
     } catch (err) {
       console.log("error", JSON.stringify(err));
@@ -100,6 +104,16 @@ function Index() {
             disabled={loading}
           >
             Log in
+          </Button>
+          <Button
+            variant="contained"
+            size="small"
+            fullWidth
+            onClick={() => handleClick(true)}
+            disabled={loading}
+            className="testUserBtn"
+          >
+            Log in With testUser
           </Button>
         </div>
         <div className="bottomcardlogin">
